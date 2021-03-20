@@ -1,12 +1,12 @@
-
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 const Render = Matter.Render;
 
-var dustbinObj,groundObject;
-var world, ball;
+
+var dustbinObj, ball, groundObject;
+var world;
 
 
 function setup() {
@@ -17,12 +17,24 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 	
+	ball=new Ball(200,450,70);
 	groundObject=new ground(width/2,670,width,20);
 	dustbinObj=new dustbin(1200,650);
+	//Create a Ground
+	
 
-    ball = new Ball(50,50);
+	var render = Render.create({
+	  element: document.body,
+	  engine: engine,
+	  options: {
+	    width: 1600,
+	    height: 700,
+	    wireframes: false
+	  }
+	});
 
 	Engine.run(engine);
+	Render.run(render);
   
 }
 
@@ -30,21 +42,25 @@ function setup() {
 function draw() {
   rectMode(CENTER);
   background(230);
+ 
   
-  if(keyDown(UP_ARROW)){
-	ball.velocityX = 5;
-	ball.velocityY= -4;
-  }
-
-  dustbinObj = loadImage("trashcangreen.png");
-
-  ball.velocityX = ball.velocityX - 2;
-  ball.velocityY = ball.velocityY - 2;
-
-
+  ball.display();
   groundObject.display();
   dustbinObj.display();
-  ball.display();
 
+  
+  
+ 
+  
+  
+ 
 }
 
+function keyPressed() {
+  	if (keyCode === UP_ARROW) {
+
+    	Matter.Body.applyForce(ball.body,ball.body.position,{x:130,y:-145});
+
+    
+  	}
+}

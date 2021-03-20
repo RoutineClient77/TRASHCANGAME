@@ -1,25 +1,38 @@
-  
-class Ball {
+class Ball{
+	constructor(x,y,r)
+	{
+		var options={
+			isStatic:false,
+			restitution:0.3,
+			friction:0,
+			density:1.2
 
-    constructor(x, y){
-        var options = {
-            'restitution': 0.8,
-            friction: 0.3,
-            density: 1.0
-        }
-        this.body = loadImage("paper.png");
-        this.width = 50;
-        this.height = 50;
-        World.add(world, this.body);
-    }
-    display(){
-        var pos = this.body.position;
-        var angle = this.body.angle;
-        push();
-        translate(pos.x, pos.y);
-        rotate(angle);
-        rectMode(CENTER);
-        rect(0, 0, this.width, this.height);
-        pop();
-    }
+			
+			}
+		this.x=x;
+		this.y=y;
+		this.r=r
+		this.image=loadImage("paper.png");
+		this.body=Bodies.circle(this.x, this.y, (this.r-20)/2, options)
+		World.add(world, this.body);
+
+	}
+	display()
+	{
+			
+			var Ballpos=this.body.position;		
+
+			push()
+			translate(Ballpos.x, Ballpos.y);
+			rectMode(CENTER)
+			//strokeWeight(4);
+			fill(255,0,255)
+			imageMode(CENTER);
+			image(this.image, 0,0,this.r, this.r)
+			//ellipse(0,0,this.r, this.r);
+			pop()
+			
+	}
+
 }
+
